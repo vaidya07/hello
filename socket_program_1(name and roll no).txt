@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+import socket
+tcpsocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+tcpsocket.bind(("0.0.0.0",8001))
+tcpsocket.listen()
+(Client_socket,(ip,port))=tcpsocket.accept()
+print("Client Socket: ", Client_socket)
+print("IP: ",ip)
+Client_socket.send(b"\nName: Your_name\n")
+data=Client_socket.recv(2048)
+print("Data Received: ",data)
+
+
+after running this file from client machine run command: telnet deb1_ip 8001

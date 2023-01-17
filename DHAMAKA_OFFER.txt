@@ -1,0 +1,21 @@
+1. Write a program to find the number of unique elements in list and print the list.
+2. Write a program to reverse the list elements
+3. Write a program to find sum of numbers in list
+4. Write a program to find the largest and smallest number in the list 
+5. Write a program to print all even numbers in a list.
+6. Write a program to print all odd numbers in a list.
+7. Write a program to remove common elements from two list in Python
+8. Write a program to print multiplication table of a given number
+9. Count the total number of digits in a number
+10. Use else block to display a message â€œDoneâ€ after successful execution of for loop
+11. Write a program to display all prime numbers within a range
+12. Display Fibonacci series up to 10 terms
+13. Reverse a given integer number
+14. Write a Python program to find those numbers which are divisible by 7 and multiple of 5, between 100 and 1000 (both included).
+15. Write a Python program to convert temperatures to and from celsius, fahrenheit
+16. Write a Python program that prints all the numbers from 0 to 6 except 3 and 6.
+Note : Use 'continue' statement.
+
+17. Write a program to display "Hello" if a number entered by user is a multiple of five , 
+otherwise print "Bye".
+18. Write a program to check whether the year is leap or not

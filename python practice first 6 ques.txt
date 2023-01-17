@@ -1,0 +1,154 @@
+Question 1:
+Write a program which will find all such numbers which are divisible by 7 but are not a multiple of 5,
+between 2000 and 3200 (both included).
+The numbers obtained should be printed in a comma-separated sequence on a single line.
+Hints: 
+Consider use range(#begin, #end) method
+
+---------------
+'''
+for i in range(2000,3201):
+    if i%7==0 and i%5!=0:
+        print("numbers divisible by 7: ",i)
+'''
+
+test=[i for i in range(2000,3201) if i%7==0 if i%5!=0]
+print(test)
+----------------
+
+Question2:
+Write a program which can compute the factorial of a given numbers.
+The results should be printed in a comma-separated sequence on a single line.
+Suppose the following input is supplied to the program: 8
+Then, the output should be:
+40320
+Hints:In case of input data being supplied to the question, it should be assumed to be a console input.
+
+-------------
+i=int(input("enter a number: "))
+fact=1
+for x in range(1,i+1):
+    fact=fact*x
+
+print("factorial of",i,"is: ",fact)
+------------------
+
+Question 3:
+With a given integral number n, write a program to generate a dictionary that contains (i, i*i) such that is an integral number between 1 and n (both included). and then the program should print the dictionary.
+Suppose the following input is supplied to the program: 8
+Then, the output should be:
+{1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64}
+Hints: In case of input data being supplied to the question, it should be assumed to be a console input.
+Consider use dict()
+
+-----------------
+n=int(input("Enter a number: "))
+dict={}
+for i in range(1,n+1):
+    key=i
+    value=i*i
+    dict[key]=value
+print(dict)
+----------------------
+
+
+Question 4:
+Write a program which accepts a sequence of comma separated 4 digit binary numbers as its input and then check whether they are divisible by 5 or not. The numbers that are divisible by 5 are to be printed in a comma separated sequence.
+Example:
+0100,0011,1010,1001
+Then the output should be: 1010
+Notes: Assume the data is input by console.
+Hints:In case of input data being supplied to the question, it should be assumed to be a console input.
+
+---------------------
+'''
+#n=int(input("Enter a number: "))
+for i in range(100,201):
+    for j in i:
+        if i[j]%2==0:
+            j++
+    print(i)
+'''
+
+def binary():
+    binaries=[i for i in input("Enter 4-digit binary numbers: ").split()]
+    print("Binaries entered: ",binaries)
+    for i in binaries:
+        x=int(i,2)
+        if x%5==0:
+            print("Number divisble by 5: ",i)
+        else:
+            print("None divisible")
+
+
+def main():
+    binary()
+
+
+if __name__=='__main__':
+    main()
+--------------------
+
+Question 5:
+Write a program, which will find all such numbers between 1000 and 3000 (both included) such that each digit of the number is an even number.
+The numbers obtained should be printed in a comma-separated sequence on a single line.
+
+Hints:
+In case of input data being supplied to the question, it should be assumed to be a console input.
+
+------------------------
+def sequence():
+    for i in range(100,301):
+        x=str(i)
+        for i in range(len(x)):
+            n=int(x[i])
+            if n%2!=0:
+                break
+        else:
+            print(x,end=',')
+
+
+def main():
+    sequence()
+
+if __name__=='__main__':
+    main()
+----------------------------
+
+
+Question6:
+Write a program that accepts a sentence and calculate the number of letters and digits.
+Suppose the following input is supplied to the program:
+hello world! 123
+Then, the output should be:
+LETTERS 10
+DIGITS 3
+Hints:
+In case of input data being supplied to the question, it should be assumed to be a console input.
+
+----------------------
+def count():
+    string=input("enter a string: ")
+    letters=0
+    digits=0
+    others=0
+    for i in string:
+        if i.isalpha():
+            letters=letters+1
+        elif i.isdigit():
+            digits=digits+1
+        else:
+            others=others+1
+
+    print("Total letters: ",letters)
+    print("Total digits: ",digits)
+    print("Others: ",others)
+
+
+
+def main():
+    count()
+
+if __name__=='__main__':
+    main()
+-----------------

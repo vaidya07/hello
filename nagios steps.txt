@@ -1,0 +1,339 @@
+
+change hostname
+
+set static ip
+
+set timezone
+
+ sudo dpkg-reconfigure tzdata
+
+ sudo apt-get install -y apache2 apache2-utils autoconf gcc libc6 libgd-dev make php python python3 unzip wget tree
+
+     cd /tmp/
+
+     wget http://192.168.1.251/sw/nagios/nagios-4.4.5.tar.gz
+
+     tar -zxf nagios-4.4.5.tar.gz
+
+     cd nagios-4.4.5
+
+    sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled/
+
+     sudo make all
+
+     sudo make install-groups-users
+
+     sudo passwd nagios
+
+     sudo usermod -a -G nagios www-data
+
+     sudo make install
+
+     sudo make install-daemoninit
+
+     sudo make install-commandmode
+
+     sudo make install-config
+
+     sudo make install-webconf
+
+     sudo a2enmod rewrite
+
+     sudo a2enmod cgi
+
+     sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+testing -  sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+     sudo systemctl restart apache2.service
+
+    sudo systemctl restart nagios.service
+
+    ip a(check in browser - ip/nagios)
+
+    cd
+
+    sudo apt-get install -y automake autotools-dev bc build-essential dc gawk gettext libmcrypt-dev libnet-snmp-perl libssl-dev snmp
+
+    cd /tmp/
+
+     wget http://192.168.1.251/sw/nagios/nagios-plugins-release-2.2.1.tar.gz
+
+     tar -zxf nagios-plugins-2.2.1.tar.gz
+
+     cd nagios-plugins-2.2.1
+
+     sudo ./tools/setup
+
+     sudo ./configure
+
+     sudo make
+
+    sudo make install
+
+check plugins in ls -l /usr/local/nagios/libexec/
+
+cd /usr/local/nagios/libexec/
+
+wget <plugin ncpa.py>  http://192.168.1.251/sw/nagios/check_ncpa.py
+
+sudo chmod 777 /usr/local/nagios/libexec/check_ncpa.py
+
+sudo ./check_ncpa.py -V 
+
+sudo ./check_ncpa.py -t pass123 (windows/linux token) -H (win client ip/linux client ip) -M memory/virtual
+
+go to /usr/local/nagios/etc/objects
+
+sudo nano commands.cfg
+
+define command {
+
+    command_name    check_ncpa
+
+    command_line    $USER1$/check_ncpa.py -H $HOSTADDRESS$ $ARG1$
+
+}
+
+------------For windows client:
+
+install ncpa in windows machine and give Token when prompted
+
+GOTO  /usr/local/nagios/etc/nagios.cfg
+
+uncomment cfg_dir=/usr/local/nagios/etc/servers
+
+create servers dir in etc folder
+
+for windows client goto /usr/local/nagios/etc/objects/templates.cfg 
+comment hostgroups line for windows-server host
+
+create file win-10.cfg in servers 
+
+services for windows:
+
+define host {
+
+        use                     windows-server
+
+        host_name               wind_10
+
+        alias                   windows 10
+
+        address                 192.168.80.182(win ip)
+
+        max_check_attempts      5
+
+}
+
+
+
+define service {
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     NCPA Agent Version
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/agent_version
+
+}
+
+
+
+define service {
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     CPU Average
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M cpu/percent -w 70 -c 80
+
+}
+
+
+
+define service {
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     C: Drive Space
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M 'disk/logical/C:|/used_percent' -w 70 -c 90
+
+}
+
+
+
+define service {
+
+
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     Uptime
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/uptime
+
+}
+
+
+
+define service {
+
+
+
+    use                     generic-service
+
+    host_name               wind_10
+
+    service_description     Virtual Memory
+
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M memory/virtual -w 70 -c 90
+
+}
+
+
+
+define service {
+
+
+
+    use                     generic-service
+
+    host_name               wind_10
+
+    service_description     Processes
+
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M processes -w 50 -c 80
+
+}
+
+
+
+define service {
+
+
+
+    use                     generic-service
+
+    host_name               wind_10
+
+    service_description     Network Interface
+
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M interface/Ethernet0
+
+}
+
+
+
+define service{
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     Server Name
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/node
+
+}
+
+
+-----------For debian client
+in client machine:
+sudo apt-get install -y wget libsqlite3-0
+cd /tmp
+wget http://192.168.1.251/sw/nagios/ncpa-2.1.9.d10.amd64.deb
+sudo dpkg -i ncpa-2.1.9.d10.amd64.deb
+
+---edit conf file for token
+sudo nano /usr/local/ncpa/etc/ncpa.cfg
+goto community_string = (give an password or token)
+
+sudo systemctl restart ncpa_listener.service
+
+In Nagios Server machine:
+
+cd /usr/local/nagios/libexec
+sudo ./check_ncpa.py -t (debian token) -H (debian client ip) -M system/agent_version
+
+add services: sudo nano /usr/local/nagios/etc/servers/deb_client.cfg
+Linux services:
+
+define host {
+        use                     linux-server
+        host_name               deb_client
+        alias                   debian client
+        address                 192.168.80.169(debian ip)
+        max_check_attempts      5
+}
+
+define service {
+        use                     generic-service
+        host_name               deb_client
+        service_description     NCPA Agent Version
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/agent_version
+}
+
+define service {
+        use                     generic-service
+        host_name               deb_client
+        service_description     CPU Average
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M cpu/percent -w 70 -c 80 -q 'aggregate=avg'
+}
+
+define service {
+
+        use                     generic-service
+        host_name               deb_client
+        service_description     Uptime
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/uptime
+}
+
+define service {
+
+    use                     generic-service
+    host_name               deb_client
+    service_description     Virtual Memory
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M memory/virtual -w 70 -c 90
+}
+
+define service {
+
+    use                     generic-service
+    host_name               deb_client
+    service_description     Processes
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M processes -w 50 -c 80
+}
+
+define service {
+
+    use                     generic-service
+    host_name               deb_client
+    service_description     Network Interface
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M interface/ens33
+}
+
+define service {
+
+    use                     generic-service
+    host_name               deb_client
+    service_description     Server Name
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/node
+}
+
+define service {
+
+    use                     generic-service
+    host_name               deb_client
+    service_description     Logical Disk Usage
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M 'disk/logical/|/used_percent' -w 70 -c 90
+}

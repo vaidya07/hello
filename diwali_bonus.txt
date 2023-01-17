@@ -1,0 +1,21 @@
+1. Find the html tags that are more than 4 letters.
+
+Html tags can be found inside <> characters and closing html tags can be found in the same format after / character. </>
+
+2. Loop through the list and apply regex to each element so that only items ending with semicolon (;) are matched.
+
+3. Find the words with exactly 8 letters
+
+4. Write a python program to identify Mobile number from the text
+
+5. Write a Program to identify unique MAC addresses from the file.
+
+6. Write a program to identify unique IP addresses from Webserver access log
+
+7. Write a program to identify the unique attacks from Snort logs
+
+8. Write a program to identify the packets of ICMP from packet tracer file.
+
+9. Write a program to take input from user for pattern and string and give the output back to the user.
+
+10. Identify all the unique special characters and count them which are used in the files.

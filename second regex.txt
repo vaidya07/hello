@@ -1,0 +1,56 @@
+Write a Python program that matches a string that has z followed by zero or more d's.
+
+
+For Example: 
+z0    True
+zd     True
+zdd    True
+zddd True
+z1    False
+zaaa   false
+
+
+
+#!/usr/bin/python3
+import re
+def Search(var1,var2):
+        var3 = re.search(var1,var2)
+        if var3:
+                print(var3.group())
+        else:
+                print("Not Found")
+
+
+def main():
+        print("hello")
+        var1 = r'z[0,d]+'
+        var2 = input("Enter string:")
+        Search(var1,var2)
+
+if __name__ == '__main__':
+        main()
+
+Output:
+
+aishwarya@aishwarya-dell:~$ nano second.py 
+aishwarya@aishwarya-dell:~$ python3 second.py 
+hello
+Enter string:check for zddddd
+zddddd
+aishwarya@aishwarya-dell:~$ python3 second.py 
+hello
+Enter string:check z0 string
+z0
+aishwarya@aishwarya-dell:~$ python3 second.py 
+hello
+Enter string:check z1 string
+Not Found
+aishwarya@aishwarya-dell:~$ python3 second.py 
+hello
+Enter string:check zaaaa string
+Not Found
+aishwarya@aishwarya-dell:~$ python3 second.py 
+hello
+Enter string:zd
+zd
+aishwarya@aishwarya-dell:~$

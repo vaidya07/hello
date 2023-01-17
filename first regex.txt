@@ -1,0 +1,49 @@
+Do all of these with the help of regular expression.
+ Match a single character except newline. 
+Match a word. 
+Match a Decimal word.
+Match a single whitespace character. 
+Match any Non-whitespace character.
+
+
+#!/usr/bin/python3
+import re
+def Search(var1,var2):
+        var3 = re.search(var1,var2)
+        if var3:
+                print(var3.group())
+        else:
+                print("Not Found")
+
+
+def main():
+        print("hello")
+        var1 = input("ENter pattern: ")
+        var2 = input("Enter string:")
+        Search(var1,var2)
+
+if __name__ == '__main__':
+        main()
+
+
+output:
+
+import first
+
+>>> first.Search(r'.','single character')
+s
+>>> first.Search(r'\w*','single character')
+single
+>>> first.Search(r'\d','match for 56789 decimal')
+5
+>>> first.Search(r'\d+','match for 56789 decimal')
+56789
+>>> first.Search(r'\s','single white-space character')
+ 
+>>> first.Search(r'\w\s\w','single white-space character')
+e w
+>>> first.Search(r'\w\S\w','single white-space character')
+sin
+>>> first.Search(r'\S','single white-space character')
+s
+>>>

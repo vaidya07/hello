@@ -1,0 +1,33 @@
+Regex in Python to put spaces between words starting with capital letters
+Given an array of characters, which is basically a sentence. However, there is no space between different words and the first letter of every word is in uppercase. You need to print this sentence after the following amendments: Put a single space between these words. Convert the uppercase letters to lowercase.
+ 
+Input : BruceWayneIsBatman
+Output : bruce wayne is batman
+
+
+#!/usr/bin/python3
+import re
+def Search(var1):
+        var2 = re.findall(r'[A-Z][a-z]*',var1)
+        for i in range(0,len(var2)):
+                var2[i]=var2[i][0].lower()+var2[i][1:]
+        print(' '.join(var2))
+
+
+def main():
+        print("hello")
+        var1 = 'BruceWayneIsBatman'
+        print("Var1 is : ",var1)
+#       var2 = input("Enter string:")
+        Search(var1)
+
+if __name__ == '__main__':
+        main()
+
+
+Output:
+
+aishwarya@aishwarya-dell:~$ python3 third.py
+hello
+Var1 is :  BruceWayneIsBatman
+bruce wayne is batman
